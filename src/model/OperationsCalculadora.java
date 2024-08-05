@@ -72,9 +72,4 @@ public class OperationsCalculadora {
         //return Double.valueOf(numStr);
         return Double.valueOf(oneDigitLess(numDouble));
     }
-    
-    private String str14(String num) {
-                
-        return "";
-    }
 }
