@@ -92,25 +92,27 @@ public class ControlCalculadora {
         caratula.getLblOperation().setText(intOrDouble(num1));
     }
     
-    private void btnEquals() {
+    private Double setNum2() {
         String strDisplay = caratula.getLblDisplay().getText();
         //si no hay caracteres tal, se puede hacer operaciones
         //if (cadDisplay.equals("0") || cadDisplay.charAt(0)=='=')
         if (strDisplay.charAt(0)=='=')
-            return;
+            return null;
         
-        System.out.println("Ando aquí");
-        double num2 = 0;
-        double result = 0;
+        Double num2 = Double.valueOf(0);
         
-        //intenta parsear el segundo número
         try {
-          num2 = Double.parseDouble(strDisplay);  
+          num2 = Double.valueOf(strDisplay);  
         } catch (NumberFormatException e) {
             //System.out.println("No es parseable. " + e);
         }
         
-        //Efectuar la operación elegida
+        return num2;
+    }
+    
+    private String getResult(double num2) {
+        double result = 0;
+        
         switch (signoOper) {
             case "+" -> result = opers.sum(num1, num2);
             case "-" -> result = opers.subtract(num1, num2);
@@ -119,19 +121,62 @@ public class ControlCalculadora {
                 Double division = opers.divide(num1, num2);
                 
                 if (division == null) {
-                    caratula.getLblDisplay().setText("Syntax Error");
-                    return;
+                    //caratula.getLblDisplay().setText("Syntax Error");
+                    return "Syntax Error";
                 }
                 
                 result = division;
             }
         }
+        System.out.println("Metodo funcionando");
+        ans = result;    //resguardar resultado
+        return "= " + intOrDouble(result);
+    }
+    
+    private void btnEquals() {
+//        String strDisplay = caratula.getLblDisplay().getText();
+//        //si no hay caracteres tal, se puede hacer operaciones
+//        //if (cadDisplay.equals("0") || cadDisplay.charAt(0)=='=')
+//        if (strDisplay.charAt(0)=='=')
+//            return;
+        
+        Double num2 = setNum2();
+        
+        if (num2 == null)
+            return;
+        
+        
+        
+//        //intenta parsear el segundo número
+//        try {
+//          num2 = Double.parseDouble(strDisplay);  
+//        } catch (NumberFormatException e) {
+//            //System.out.println("No es parseable. " + e);
+//        }
+        
+        //Efectuar la operación elegida
+//        switch (signoOper) {
+//            case "+" -> result = opers.sum(num1, num2);
+//            case "-" -> result = opers.subtract(num1, num2);
+//            case "*" -> result = opers.multiply(num1, num2);
+//            case "/" -> {
+//                Double division = opers.divide(num1, num2);
+//                
+//                if (division == null) {
+//                    caratula.getLblDisplay().setText("Syntax Error");
+//                    return;
+//                }
+//                
+//                result = division;
+//            }
+//        }
         
         //setea etiqueta operaciones
         caratula.getLblOperation().setText(intOrDouble(num1) + " " + signoOper + " " + intOrDouble(num2));
-        ans = result;    //resguardar resultado
+        //ans = result;    //resguardar resultado
         
-        caratula.getLblDisplay().setText("= " + intOrDouble(result));
+        //caratula.getLblDisplay().setText("= " + intOrDouble(result));
+        caratula.getLblDisplay().setText("= " + getResult(num2));
     }
     
     private String intOrDouble(double num) {
@@ -188,9 +233,6 @@ public class ControlCalculadora {
     
     private void getAns() {
         String strDisplay = caratula.getLblDisplay().getText();
-        //si no hay caracteres tal, se puede hacer operaciones
-//        if (strDisplay.charAt(0)=='=')
-//            return;
         
         if (strDisplay.charAt(0)=='0' || !Character.isDigit(strDisplay.charAt(0))) {
             caratula.getLblDisplay().setText(String.valueOf(intOrDouble(ans)));
