@@ -53,6 +53,7 @@ public class CaratulaExt extends javax.swing.JFrame {
         pnlFondo.setBackground(new java.awt.Color(102, 204, 255));
 
         pnlSombra.setBackground(new java.awt.Color(51, 51, 51));
+        pnlSombra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         pnlDisplay.setBackground(new java.awt.Color(153, 153, 0));
 
@@ -283,7 +284,7 @@ public class CaratulaExt extends javax.swing.JFrame {
                 .addComponent(pnlSombra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addComponent(pnlBotonera, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
