@@ -78,39 +78,43 @@ public class ControlCalculadora {
     }
     
     private void applyOperation(String signo) {
-        String cadDisplay = caratula.getLblDisplay().getText();
+        //set sign
+        String strDisplay = caratula.getLblDisplay().getText();
         caratula.getLblDisplay().setText(signo);
         this.signoOper = signo;
         
-        if (!Character.isDigit(cadDisplay.charAt(0))) {
+        if (!Character.isDigit(strDisplay.charAt(0))) {
             return;
         }
         
-        this.num1 = Double.parseDouble(cadDisplay);
+        //Save the first number
+        this.num1 = Double.parseDouble(strDisplay);
         caratula.getLblOperation().setText(intOrDouble(num1));
     }
     
     private void btnEquals() {
-        String cadDisplay = caratula.getLblDisplay().getText();
+        String strDisplay = caratula.getLblDisplay().getText();
         //si no hay caracteres tal, se puede hacer operaciones
-        if (cadDisplay.equals("0") || cadDisplay.charAt(0)=='=')
+        //if (cadDisplay.equals("0") || cadDisplay.charAt(0)=='=')
+        if (strDisplay.charAt(0)=='=')
             return;
         
+        System.out.println("Ando aquí");
         double num2 = 0;
-        double resultado = 0;
+        double result = 0;
         
         //intenta parsear el segundo número
         try {
-          num2 = Double.parseDouble(cadDisplay);  
+          num2 = Double.parseDouble(strDisplay);  
         } catch (NumberFormatException e) {
             //System.out.println("No es parseable. " + e);
         }
         
         //Efectuar la operación elegida
         switch (signoOper) {
-            case "+" -> resultado = opers.sum(num1, num2);
-            case "-" -> resultado = opers.subtract(num1, num2);
-            case "*" -> resultado = opers.multiply(num1, num2);
+            case "+" -> result = opers.sum(num1, num2);
+            case "-" -> result = opers.subtract(num1, num2);
+            case "*" -> result = opers.multiply(num1, num2);
             case "/" -> {
                 Double division = opers.divide(num1, num2);
                 
@@ -119,15 +123,15 @@ public class ControlCalculadora {
                     return;
                 }
                 
-                resultado = division;
+                result = division;
             }
         }
         
         //setea etiqueta operaciones
         caratula.getLblOperation().setText(intOrDouble(num1) + " " + signoOper + " " + intOrDouble(num2));
-        ans = resultado;    //resguardar resultado
+        ans = result;    //resguardar resultado
         
-        caratula.getLblDisplay().setText("= " + intOrDouble(resultado));
+        caratula.getLblDisplay().setText("= " + intOrDouble(result));
     }
     
     private String intOrDouble(double num) {
